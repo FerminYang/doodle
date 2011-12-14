@@ -1,0 +1,16 @@
+{% if error %}
+    <p class="error">{{ error }}</p>
+    <br>
+    <p>友情提示：新浪微博喜欢躲猫猫，你可以多试一次 ╮（╯◇╰）╭</p>
+{% endif %}
+{% if constellation %}
+    <div>
+        <p><a class="img" target =_blank href="http://weibo.com/{{ weibourl }}"><img class="textbox" src="{{ guessed_weibo.profile_image_url }}" height="50" width="50" alt="" title="{{ guessed_weibo.screen_name }}"/></a>
+            <a  class="name" target =_blank href="http://weibo.com/{{ guessed_weibo.domain }}">{{ guessed_weibo.screen_name }}</a> 的星座：<span class="redcons">{{ constellation }}座</span> ({{ rate }})</p>
+        <form action="/update" method="post">
+            <p><textarea name=message class="textbox">{{ message }}</textarea></p>
+            <p class="rightbutton">发微博逗她/他一下 <input type=submit class="g-button g-button-red" value="发布"></p>
+        </form>
+    </div>
+{% endif %}
+

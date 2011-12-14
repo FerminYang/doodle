@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block js %}
+<script>
+    $(function() {
+        $('#guess_button').bind('click', function() {
+            $.get('/guess', {
+            guessed_name: $('input[name="guessed_name"]').val()
+          }, function(data) {
+            $("#guess_result").html(data);
+          });
+          return false;
+        });
+    });
+</script>
+{% endblock %}
+
+{%- block content %}
+    <div id="content">
+        <div id="guessinfo">
+            <div id="guess">
+                <p><a class="g-button" id="selector">选择微博好友</a> 或输入微博用户昵称，如：赵薇</p>
+                <p><input id="guessed_name" class="textbox" type=text name=guessed_name value="{{ guessed_name }}" onfocus="this.select()" onclick="this.select()"><input type=button id="guess_button" class="g-button g-button-red" value=猜一下></p>
+            </div>
+            <div id="infobar">
+                <p class="white">你猜过 <a>{{ g.user.guesser_count }}人</a> | 猜过你 <a>{{ g.user.guessed_count }}人</a></p>
+            </div>
+        </div>
+        <div id="guess_result">
+        </div>
+    </div>
+
+{%- endblock %}
+
+
