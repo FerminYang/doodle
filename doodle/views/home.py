@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 #coding=utf-8
 
-from flask import Module, request, flash, g, render_template, render_template_string, jsonify
+from flask import Module, request, flash, g, render_template
 from models import Guess, Weibo
 import worker.guess
 from needs import need_api, need_login
@@ -32,7 +32,7 @@ def guess():
                 except:
                     return render_template('guess.html', error=u"获取好友关系失败，请稍候再试")
         else:
-            return render_template_string('guess.html', error=u"微博昵称不能为空")
+            return render_template('guess.html', error=u"微博昵称不能为空")
 
         if guessed_user:
             constellation_id, rate, error = worker.guess(id=guessed_user.id)
@@ -41,7 +41,7 @@ def guess():
             constellation = constellations[constellation_id][1]
 
             if error:
-                return render_template_string('guess.html', error=error)
+                return render_template('guess.html', error=error)
 
             Guess.set(guesser_id=g.user.id, guessed_id=guessed_user.id, constellation_id=constellation_id, rate=rate)
             Weibo.set(weibo=guessed_user)
@@ -50,5 +50,5 @@ def guess():
             rate = str(rate) + "%"
             return render_template('guess.html',constellation=constellation, rate=rate, message=message, error=None, guessed_weibo=guessed_weibo)
         else:
-            return render_template_string('guess.html', error=u'无法获取该用户的微博信息')
+            return render_template('guess.html', error=u'无法获取该用户的微博信息')
             
