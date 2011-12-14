@@ -99,6 +99,6 @@ def guess(id):
         return constellations[0][0], 90, None
 	if constellations[0][2] > 0 and constellations[0][2] == constellations[1][2]:
 		return constellations[0][0], 60, None
-    #x = usershow.id % 12
-    x = int(random.randint(0, 11))
+    x = id % 12
+    #x = int(random.randint(0, 11))
     return constellations[x][0], 30, None
